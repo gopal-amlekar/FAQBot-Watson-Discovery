@@ -4,19 +4,19 @@ export default (request) => {
     const auth = require('codec/auth');
 
 // Watson Discovery Collection Id
-var collection_id = '3585189b-6782-423c-8245-ec1e4c83933e';
+var collection_id = '';
 // Watson Discovery Environment Id
-var environment_id = '18c02ec9-8260-42dc-a5ad-5f22f974775d';
+var environment_id = '';
 
 // Watson Discovery Service credential - User name
-var discovery_user = '489444de-82fb-4fb5-be38-ba83ddf27571';
+var discovery_user = '';
 // Watson Discovery Service credential - Password
-var discovery_pass = 'jwk165wTtJ8T';
+var discovery_pass = '';
 
 // Watson Language Translator Service credential - User name
-var ltUsername = '0a4d2cbf-dd6a-4a6b-8c00-6a688e73b794';
+var ltUsername = '';
 // Watson Language Translator Service credential -  Password
-var ltPassword = 'IwZvMmC2XnrQ';
+var ltPassword = '';
 
 
 var ltUrl = 'https://gateway.watsonplatform.net/language-translator/api/v2/translate'
