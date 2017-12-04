@@ -1,0 +1,187 @@
+Message codes 
+			0 - Query for camera manual list from kv store 
+			1 - Query for user Questions
+
+Message commands
+			query-list - requests for listing camera manuals
+			query-req - requests for user query answer
+
+Message types
+			req - Request message from UI to block
+			resp - Response message from block to UI
+			err - Error message from Watson API and Pubnub functions
+
+PubNub Channels used
+			faqbot_req_resp - App to Block and vice-versa common data channel
+
+App to Block and vice-versa :
+===============================
+
+1) Reload the UI page operation/Query for camera manual list from kv store
+
+	request - 
+		format : 
+			{
+			"messagecode":<code here>,
+			"messagetype":<type here>,
+			"command":<query command>,
+			}	
+
+		example :
+		{
+			"messagecode":"0",
+			"messagetype":"req",
+			"command":"query-list"
+		}
+	response - 
+		format :
+		{
+			"messagecode":<code here>,
+			"messagetype":<type here>,
+			"command": <command>,
+			"userManual": {
+				"collectionName": <collection name>,
+				"model": <camera model>,
+				"defaultUserQuery": <default user queries>
+			}
+		}	
+		
+		example :
+			when there is data in the database
+				{
+					"messagecode":"0",
+					"messagetype":"resp",
+					"command": "query-list",
+					"userManual": {
+						"collectionName": "EOS550D",
+						"model": "Cannon EOS 550D",
+						"defaultUserQuery":[
+                                			"Introduction to eos550d",
+                                			"how to connect camera to a printer?",
+                                			"how do i clean the sensor?",
+                                			"LCD monitor precautions?",
+                                			"explain about automatic self-cleaning sensor"
+						]
+					}
+				}
+
+
+2) Query for user Questions from UI to block and its response 
+	request - 
+	format :
+		{
+			"messagecode":<code here>,
+			"messagetype":<type here>,
+			"command": <query command>,
+			"manual": <camera manual>, 
+			"userQuery": <user query>,
+			"targetLanguage":<languageList>	
+		}
+	example :
+
+		{
+			"messagecode":"1",
+			"messagetype":"req",
+			"command": "query-req",
+			"manual": "Cannon EOS 550D", 
+			"userQuery": "aperture",
+			"targetLanguage":"fr"
+		}
+	response -
+	format :
+		{
+			"messagecode": <code here>,
+			"messagetype": <type here>,
+			"command": <query command>,
+			"manual": <camera manual>, 
+			"userQuery": <user query>,
+			"targetLanguage": <select target language>, 
+			"ltApiResp":{
+					"translations": [
+							{"translation":<user query answer>},
+							{"translation":<user query answer>},
+							{"translation":<user query answer>}
+					], 
+					"word_count": <total word count>, 
+					"character_count": <total character count>
+			}
+		}
+
+
+	example : 	
+
+		{
+			"messagecode": "1",
+			"messagetype": "resp",
+			"command": "query-req",
+			"manual": "Cannon EOS 550D", 
+			"userQuery": "aperture",
+			"targetLanguage": "fr", 
+			"ltApiResp":{
+				"translations": [
+					{
+						"translation":"ادخال"
+					},
+					{
+						"translation":"هذه الكاميرا متوافقة مع بطاقات الذاكرة SD وبطاقات SDHC الذاكرة و Sdxc بطاقة"
+					},
+					{
+						"translation":"إدخال بند فحص لا تزال قائمة- 3 اتفاقيات المستخدمة في هذا الدليل"
+					}
+				], 
+				"word_count": 1326, 
+				"character_count": 14752
+			}
+		}
+
+3) Error handling :
+
+	request - 
+	format :
+		{
+			"messagecode":<code here>,
+			"messagetype":<type here>,
+			"command": <query command>,
+			"manual": <camera manual>, 
+			"userQuery": <user query>,
+			"targetLanguage":<languageList>	
+		}
+	example :
+
+		{
+			"messagecode":"1",
+			"messagetype":"err",
+			"command": "query-req",
+			"manual": "Cannon EOS 550D", 
+			"userQuery": "aperture",
+			"targetLanguage":"fr"
+		}
+	response -
+	format :
+		{
+			"messagecode": <code here>,
+			"messagetype": <type here>,
+			"command": <query command>,
+			"manual": <camera manual>, 
+			"userQuery": <user query>,
+			"targetLanguage": <select target language>,
+			"errHandler":{
+					"errType":<error message>
+				     }
+		}
+
+	example:
+
+		{
+			"messagecode": "1",
+			"messagetype": "err",
+			"command": "query-req",
+			"manual": "Cannon EOS 550D", 
+			"userQuery": "aperture",
+			"targetLanguage": "fr",
+			"errHandler":{
+					"errType":"Exceeded 32K message size Limitation"
+				     }
+		}
+
+

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+      <!-- jQuery library -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+      <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.15.1.js"></script>
+
+      <script src="js/cameraManual.js"></script>
+
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-6" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+        <title>Multi-Lingual FAQ bot</title>
+
+    </head>
+
+    <body>
+        <div class="container" >
+            <h1 style="text-align:center;">Multi-Lingual FAQ Bot</h1>
+            <form>
+
+              <div class="row"  style="padding-top:20px;">
+                <div class="col-lg-8 col-lg-offset-2" >
+                  <label for="query-box">Query a collection: </label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="For e.g. 'How to view images'" id="query-box" name="search">
+                    <div class="input-group-btn">
+                      <button class="btn btn-default" type="button" id="inputQuestionSubmit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row"  style="padding-top:20px; padding-bottom:10px">
+                <div class="col-lg-5 col-lg-offset-2">
+                  <label for="document-list">Collection Name: </label>
+                  <select class="form-control" id="document-list" required>
+                    <option selected disabled hidden>Select Your Camera Model</option>
+                  </select>
+                </div>
+                <div class="col-lg-3">
+                  <label for="language-list">Target Language: </label>
+                  <select class="form-control" id="language-list" required>
+                      <option value="en">English</option>
+                      <option value="de">German</option>
+                      <option value="fr">French</option>
+                      <option value="ar">Arabic</option>
+                  </select>
+                </div>
+
+              </div>
+          </form>
+        </div>
+
+          <hr size="30">
+                  <div class="row" style="padding-top:10px;">
+                    <div class="col-lg-8 col-lg-offset-2">
+                      <label for="queryResultList" id="results-label"></label>
+                      <textarea readonly id="queryResultList" class="form-control" rows="12"></textarea>
+                    </div>
+                  </div>
+
+    </body>
+</html>
